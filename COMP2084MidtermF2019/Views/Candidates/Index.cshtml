@@ -1,0 +1,65 @@
+﻿@model IEnumerable<COMP2084MidtermF2019.Models.Candidate>
+
+@{
+    ViewData["Title"] = "Candidates";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Candidates</h1>
+
+<p>
+    @if (User.Identity.IsAuthenticated)
+    {
+    <a asp-action="Create">Create New</a> 
+    }
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Party)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Riding)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Party.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Riding.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.CandidateId">Details</a>
+            </td>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CandidateId">Edit</a> |
+
+                    <a asp-action="Delete" asp-route-id="@item.CandidateId">Delete</a>
+                </td>
+            }
+
+        </tr>
+}
+    </tbody>
+</table>
